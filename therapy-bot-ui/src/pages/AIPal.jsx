@@ -67,7 +67,9 @@ const AIPal = () => {
 
   const getLLMResponse = async (userText, emotion) => {
     try {
-      const prompt = `User is feeling "${emotion}" and said: "${userText}". Respond with empathy.`;
+      const prompt = `User is feeling "${emotion}" and said: "${userText}". Respond with empathy. 
+      Be emotionally intelligent in your answers. Keep your answers short but complete. 
+      Be more of a listener and less of a speaker.`;
   
       const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
@@ -76,20 +78,17 @@ const AIPal = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'mixtral-8x7b-32768',
+          model: 'llama-3.3-70b-versatile',
           messages: [{ role: 'user', content: prompt }],
           temperature: 0.7
         })
       });
   
       const data = await res.json();
-      console.log("AI response:", data);
+      console.log("Full API response:", data);
   
-      if (!data.choices || !data.choices.length) {
-        return 'AI Pal had trouble replying. Try again!';
-      }
-  
-      return data.choices[0].message.content;
+      const message = data?.choices?.[0]?.message?.content;
+      return message || 'AI Pal had trouble replying. Try again!';
     } catch (err) {
       console.error("Groq API error:", err);
       return 'There was an error contacting AI Pal.';
