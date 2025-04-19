@@ -1,10 +1,11 @@
+
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Typography, Link, Button, Card, CardMedia, CardContent } from '@mui/material';
 import { styled } from '@mui/system';
 
 const BackgroundContainer = styled(Box)(({ theme }) => ({
-  backgroundImage: 'url(/images/secondary_pages_bg.jpg)',
+  backgroundImage: 'url(/images/blogs_aipal_bg.jpg)',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   width: '100vw',

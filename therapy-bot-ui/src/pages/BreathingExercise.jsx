@@ -5,7 +5,7 @@ import Confetti from 'react-confetti';
 import { Link as RouterLink } from 'react-router-dom';
 
 const BackgroundContainer = styled(Box)(({ theme }) => ({
-  backgroundImage: 'url(/images/secondary_pages_bg.jpg)',
+  backgroundImage: 'url(/images/breathing_bg.jpg)',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   width: '100vw',
