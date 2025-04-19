@@ -1,7 +1,14 @@
-
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Typography, Link, Button, Card, CardMedia, CardContent } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Link,
+  Button,
+  Card,
+  CardMedia,
+  CardContent
+} from '@mui/material';
 import { styled } from '@mui/system';
 
 const BackgroundContainer = styled(Box)(({ theme }) => ({
@@ -15,16 +22,29 @@ const BackgroundContainer = styled(Box)(({ theme }) => ({
 }));
 
 const NavBar = styled(Box)(({ theme }) => ({
+  position: 'sticky',
+  top: 0,
+  zIndex: 1000,
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'center',
   padding: theme.spacing(2, 4),
   gap: theme.spacing(4),
-  background: 'transparent',
+  backgroundColor: '006400', // cream color
   color: '#000',
   fontWeight: 'bold',
   fontSize: '1rem',
-  zIndex: 10,
+  boxShadow: '0px 2px 10px rgba(0,0,0,0.1)',
+}));
+
+const NavLink = styled(Link)(({ theme }) => ({
+  textDecoration: 'none',
+  color: '#004d00',
+  fontWeight: 'bold',
+  '&:hover': {
+    textDecoration: 'underline',
+    color: '#006400',
+  },
 }));
 
 const Content = styled(Box)(({ theme }) => ({
@@ -86,10 +106,14 @@ const SelfHelpBlogs = () => {
   return (
     <BackgroundContainer>
       <NavBar>
-        <Typography variant="body1" component={RouterLink} to="/">Home</Typography>
-        <Typography variant="body1" component={RouterLink} to="/ai-pal">Talk to AI Pal</Typography>
-        <Typography variant="body1" component={RouterLink} to="/breathing-exercise">Breathing Exercise</Typography>
-        <Typography variant="body1" component={RouterLink} to="/self-help-blogs">Self Help Blogs</Typography>
+        <NavLink component={RouterLink} to="/">Home</NavLink>
+        <NavLink component={RouterLink} to="/ai-pal" sx={{
+          backgroundColor: 'rgba(0,100,0,0.1)',
+          padding: '4px 8px',
+          borderRadius: '6px'
+        }}>Talk to AI Pal</NavLink>
+        <NavLink component={RouterLink} to="/breathing-exercise">Breathing Exercise</NavLink>
+        <NavLink component={RouterLink} to="/self-help-blogs">Self Help Blogs</NavLink>
       </NavBar>
 
       <Content>

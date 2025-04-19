@@ -1,7 +1,7 @@
 // pages/LandingPage.jsx
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, Link } from '@mui/material';
 import { styled } from '@mui/system';
 
 const BackgroundContainer = styled(Box)(({ theme }) => ({
@@ -9,7 +9,7 @@ const BackgroundContainer = styled(Box)(({ theme }) => ({
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   width: '100vw',
-  height: '100vh',
+  minHeight: '100vh',
   display: 'flex',
   flexDirection: 'column',
 }));
@@ -20,11 +20,23 @@ const NavBar = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   padding: theme.spacing(2, 4),
   gap: theme.spacing(4),
-  background: 'transparent',
+  backgroundColor: '006400', // cream color
   color: '#000',
   fontWeight: 'bold',
   fontSize: '1rem',
-  zIndex: 10,
+  position: 'sticky',
+  top: 0,
+  zIndex: 1000,
+  boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
+}));
+
+const NavLink = styled(Link)(({ theme }) => ({
+  textDecoration: 'none',
+  color: '#000',
+  fontWeight: 'bold',
+  '&:hover': {
+    textDecoration: 'underline',
+  },
 }));
 
 const Content = styled(Box)(({ theme }) => ({
@@ -40,10 +52,21 @@ const LandingPage = () => {
   return (
     <BackgroundContainer>
       <NavBar>
-        <Typography variant="body1" component={RouterLink} to="/">Home</Typography>
-        <Typography variant="body1" component={RouterLink} to="/ai-pal">Talk to AI Pal</Typography>
-        <Typography variant="body1" component={RouterLink} to="/breathing-exercise">Breathing Exercise</Typography>
-        <Typography variant="body1" component={RouterLink} to="/self-help-blogs">Self Help Blogs</Typography>
+        <NavLink component={RouterLink} to="/">Home</NavLink>
+        <NavLink
+          component={RouterLink}
+          to="/ai-pal"
+          sx={{ 
+            backgroundColor: 'rgba(0,100,0,0.1)',
+            fontWeight: 'bold',
+            padding: '4px 8px',
+            borderRadius: '5px',
+          }}
+        >
+          Talk to AI Pal
+        </NavLink>
+        <NavLink component={RouterLink} to="/breathing-exercise">Breathing Exercise</NavLink>
+        <NavLink component={RouterLink} to="/self-help-blogs">Self Help Blogs</NavLink>
       </NavBar>
 
       <Content>
@@ -57,9 +80,9 @@ const LandingPage = () => {
             and offer support. No solutions, promise (Unless you ask for them hehe)
           </Typography>
           <Button
-              component={RouterLink}
-              to="/ai-pal"
-              variant="contained"
+            component={RouterLink}
+            to="/ai-pal"
+            variant="contained"
             sx={{
               backgroundColor: '#000',
               borderRadius: '30px',

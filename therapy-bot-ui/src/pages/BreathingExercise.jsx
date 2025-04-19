@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Box, Button, Typography, CircularProgress, TextField } from '@mui/material';
+import { Box, Button, Typography, CircularProgress, TextField, Link } from '@mui/material';
 import { styled } from '@mui/system';
 import Confetti from 'react-confetti';
 import { Link as RouterLink } from 'react-router-dom';
@@ -20,9 +20,23 @@ const NavBar = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   padding: theme.spacing(2, 4),
   gap: theme.spacing(4),
+  backgroundColor: '006400', // cream color
   color: '#000',
   fontWeight: 'bold',
   fontSize: '1rem',
+  position: 'sticky',
+  top: 0,
+  zIndex: 1000,
+  boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
+}));
+
+const NavLink = styled(Link)(({ theme }) => ({
+  textDecoration: 'none',
+  color: '#000',
+  fontWeight: 'bold',
+  '&:hover': {
+    textDecoration: 'underline',
+  },
 }));
 
 const Content = styled(Box)(({ theme }) => ({
@@ -106,10 +120,15 @@ const BreathingExercise = () => {
   return (
     <BackgroundContainer>
       <NavBar>
-        <Typography variant="body1" component={RouterLink} to="/">Home</Typography>
-        <Typography variant="body1" component={RouterLink} to="/ai-pal">Talk to AI Pal</Typography>
-        <Typography variant="body1" component={RouterLink} to="/breathing-exercise">Breathing Exercise</Typography>
-        <Typography variant="body1" component={RouterLink} to="/self-help-blogs">Self Help Blogs</Typography>
+        <NavLink component={RouterLink} to="/">Home</NavLink>
+        <NavLink component={RouterLink} to="/ai-pal" sx={{ 
+          backgroundColor: 'rgba(0,100,0,0.1)',
+          fontWeight: 'bold',
+          padding: '4px 8px',
+          borderRadius: '5px',
+        }}>Talk to AI Pal</NavLink>
+        <NavLink component={RouterLink} to="/breathing-exercise">Breathing Exercise</NavLink>
+        <NavLink component={RouterLink} to="/self-help-blogs">Self Help Blogs</NavLink>
       </NavBar>
 
       <Content>
@@ -123,7 +142,7 @@ const BreathingExercise = () => {
             <>
               <TextField
                 type="number"
-                text="Number of Rounds"
+                label="Number of Rounds"
                 variant="outlined"
                 value={rounds}
                 onChange={(e) => setRounds(Math.max(1, parseInt(e.target.value) || 1))}
