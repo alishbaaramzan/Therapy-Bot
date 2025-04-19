@@ -152,7 +152,14 @@ const BreathingExercise = () => {
                 variant="contained"
                 color="success"
                 onClick={startExercise}
-                sx={{ fontSize: '1.2rem', borderRadius: 3, padding: '12px 24px' }}
+                sx={{
+                  backgroundColor: '#000',
+                  borderRadius: '30px',
+                  paddingX: 4,
+                  color: '#fff',
+                  marginTop: 2,
+                  fontSize: '1.2rem', padding: '12px 24px'
+                }}
               >
                 Start Breathing Exercise
               </Button>

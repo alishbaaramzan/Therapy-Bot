@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as faceapi from 'face-api.js';
-import {
-  Box, Typography, Button
-} from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { styled } from '@mui/system';
 import OpenAI from "openai";
@@ -14,6 +12,7 @@ const openai = new OpenAI({
 
 const BackgroundContainer = styled(Box)({
   background: 'linear-gradient(to bottom, #f8f6e9, #f0e8c9)',
+  backgroundImage: 'url("/images/blogs_aipal_bg.jpg")',
   width: '100vw',
   height: '100vh',
   display: 'flex',
@@ -105,7 +104,7 @@ const Ripple = styled(Box)({
   pointerEvents: 'none',
   '@keyframes ripple': {
     '0%': { transform: 'scale(1)', opacity: 0.8 },
-    '100%': { transform: 'scale(1.8)', opacity: 0 }
+    '100%': { transform: 'scale(1.8)', opacity: 0 },
   }
 });
 
@@ -141,19 +140,38 @@ const AIPal = () => {
   };
 
   const startListening = () => {
-    if (!('webkitSpeechRecognition' in window)) return;
+    if (!('webkitSpeechRecognition' in window)) {
+      console.error('Speech recognition is not supported by your browser.');
+      return;
+    }
 
     const recognition = new window.webkitSpeechRecognition();
     recognition.lang = 'en-US';
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 
-    recognition.onstart = () => setListening(true);
-    recognition.onend = () => setListening(false);
-    recognition.onerror = () => setListening(false);
+    recognition.onstart = () => {
+      console.log('Speech recognition started');
+      setListening(true);
+    };
+
+    recognition.onend = () => {
+      console.log('Speech recognition ended');
+      setListening(false);
+      // Restart recognition to keep it running
+      setTimeout(() => startListening(), 1000); // Restart after a short delay
+    };
+
+    recognition.onerror = (err) => {
+      console.error('Speech recognition error:', err);
+      setListening(false);
+      // Optionally retry on error
+      startListening();
+    };
 
     recognition.onresult = async (event) => {
       const voiceText = event.results[0][0].transcript;
+      console.log('Voice detected:', voiceText);
       const reply = await getLLMResponse(voiceText, expression);
       speak(reply);
     };
@@ -255,23 +273,12 @@ const AIPal = () => {
         <Typography variant="h6" sx={{ color: '#006400', mb: 2 }}>
           Detected Emotion: {expression.charAt(0).toUpperCase() + expression.slice(1)}
         </Typography>
-        <Button
-          variant="contained"
-          onClick={startCall}
-          disabled={callStarted}
-          sx={{ mr: 2, py: 1.5, px: 3 }}
-        >
-          {callStarted ? 'In Call' : 'Call AI Pal'}
-        </Button>
-        <Button
-          variant="outlined"
-          color="error"
-          onClick={endCall}
-          disabled={!callStarted}
-          sx={{ py: 1.5, px: 3 }}
-        >
-          Hang Up
-        </Button>
+
+        {!callStarted ? (
+          <Button onClick={startCall} variant="contained" color="success">Start Call</Button>
+        ) : (
+          <Button onClick={endCall} variant="contained" color="error">End Call</Button>
+        )}
       </Box>
     </BackgroundContainer>
   );
