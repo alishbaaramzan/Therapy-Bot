@@ -8,7 +8,7 @@ Built using React, face-api.js, Groq + OpenAI APIs, and browser-based speech too
 ### Clone the repository
 
 ```bash
-git clone https://github.com/your-username/therapy-bot-ui.git
+git clone https://github.com/alishbaaramzan/Therapy-Bot.git
 cd therapy-bot-ui
 ```
 
