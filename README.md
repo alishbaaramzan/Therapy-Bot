@@ -67,6 +67,11 @@ public/images/
 - OpenAI API (TTS)
 - Web Speech API
 
+ ## 📄 License
+
+This project is intended for educational and personal use.
+```
+
 ## 📄 License
 
 This project is intended for educational and personal use.
