@@ -69,7 +69,7 @@ public/images/
 
  ## 📄 License
 
-This project is intended for educational and personal use.
+This project is intended for educational and personal use and is not ready to deploy without proper clinical oversight, testing, or fine-tuning on mental health datasets.
 ```
 
 ## 📄 License
